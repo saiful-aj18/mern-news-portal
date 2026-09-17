@@ -160,7 +160,7 @@ function Dashboard() {
         <div className="mx-auto max-w-7xl px-4 py-8 sm:py-10 lg:px-6 lg:py-12">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <div className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-red-600">
+              <div className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-cyan-600">
                 <Newspaper size={14} />
                 <span>Account Dashboard</span>
               </div>
@@ -177,7 +177,7 @@ function Dashboard() {
 
             <Link
               to="/create-news"
-              className="inline-flex w-full items-center justify-center gap-2 bg-red-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-red-700 sm:w-auto"
+              className="inline-flex w-full items-center justify-center gap-2 bg-emerald-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-red-700 sm:w-auto"
             >
               <Plus size={17} />
               Create News
@@ -236,7 +236,6 @@ function Dashboard() {
                   onSubmit={handleProfileUpdate}
                   className="p-5 sm:p-6"
                 >
-                  {/* Profile Image */}
                   <div className="mb-6 flex items-center gap-4">
                     <div className="relative">
                       {profile.photoURL ? (
@@ -371,7 +370,7 @@ function Dashboard() {
                   <button
                     type="submit"
                     disabled={saving}
-                    className="inline-flex w-full items-center justify-center gap-2 bg-stone-900 px-4 py-3 text-sm font-bold text-white transition hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="inline-flex w-full items-center justify-center gap-2 bg-cyan-900 px-4 py-3 text-sm font-bold text-white transition hover:bg-cyan-700 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {saving ? (
                       <>

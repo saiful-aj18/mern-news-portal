@@ -1,5 +1,14 @@
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import {
+  Menu,
+  X,
+  LogIn,
+  LogOut,
+  LayoutDashboard,
+  Plus,
+} from "lucide-react";
+
 import useAuthStore from "../store/authStore";
 
 function Navbar() {
@@ -16,7 +25,9 @@ function Navbar() {
         : "text-stone-700 hover:text-red-600"
     }`;
 
-  const closeMenu = () => setMenuOpen(false);
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
 
   const handleLogout = () => {
     logout();
@@ -25,24 +36,25 @@ function Navbar() {
   };
 
   return (
-    <header className="border-b border-stone-200 bg-white">
-      {/* Top Bar */}
-      <div className="hidden border-b border-stone-200 bg-stone-50 md:block">
+    <header className="sticky top-0 z-50 border-b border-stone-200/80 bg-white/90 shadow-sm backdrop-blur-xl">
+      {/* Top Info Bar */}
+      <div className="hidden border-b border-stone-200/70 bg-stone-50/70 md:block">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 text-xs text-stone-500 lg:px-6">
           <span>Thursday, September 17, 2026</span>
+
           <span>Independent News &amp; Analysis</span>
         </div>
       </div>
 
+      {/* Main Navbar */}
       <div className="mx-auto max-w-7xl px-4 lg:px-6">
         <div className="flex min-h-16 items-center justify-between gap-4">
-          
           <Link
             to="/"
             onClick={closeMenu}
             className="flex shrink-0 items-center gap-2.5 sm:gap-3"
           >
-            <div className="flex h-9 w-9 items-center justify-center bg-red-600 text-lg font-black text-white sm:h-10 sm:w-10 sm:text-xl">
+            <div className="flex h-9 w-9 items-center justify-center bg-red-600 text-lg font-black text-white shadow-sm sm:h-10 sm:w-10 sm:text-xl">
               N
             </div>
 
@@ -92,60 +104,60 @@ function Navbar() {
               <>
                 <Link
                   to="/dashboard"
-                  className="text-sm font-semibold text-stone-700 hover:text-red-600"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-stone-700 transition hover:text-red-600"
                 >
+                  <LayoutDashboard size={15} />
                   Dashboard
                 </Link>
 
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="border border-stone-900 px-4 py-2 text-sm font-semibold text-stone-900 transition hover:bg-stone-900 hover:text-white"
+                  className="inline-flex items-center gap-2 border border-cyan-900 px-4 py-2 text-sm font-semibold text-cyan-900 transition hover:bg-cyan-900 hover:text-white"
                 >
+                  <LogOut size={15} />
                   Logout
                 </button>
               </>
             ) : (
               <Link
                 to="/login"
-                className="border border-stone-900 px-4 py-2 text-sm font-semibold text-stone-900 transition hover:bg-stone-900 hover:text-white"
+                className="inline-flex items-center gap-2 border border-cyan-900 px-4 py-2 text-sm font-semibold text-cyan-900 transition hover:bg-cyan-900 hover:text-white"
               >
+                <LogIn size={15} />
                 Sign in
               </Link>
             )}
           </nav>
 
-          {/* Mobile Button */}
+          {/* Mobile Menu Button */}
           <button
             type="button"
             onClick={() =>
               setMenuOpen((prev) => !prev)
             }
-            className="flex h-10 w-10 shrink-0 items-center justify-center border border-stone-300 text-stone-900 lg:hidden"
+            className="flex h-10 w-10 shrink-0 items-center justify-center border border-stone-300 bg-white/70 text-stone-900 transition hover:border-stone-900 lg:hidden"
             aria-label="Toggle navigation menu"
+            aria-expanded={menuOpen}
           >
             {menuOpen ? (
-              <span className="text-2xl leading-none">
-                ×
-              </span>
+              <X size={21} />
             ) : (
-              <span className="text-xl leading-none">
-                ☰
-              </span>
+              <Menu size={21} />
             )}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {menuOpen && (
-          <div className="border-t border-stone-200 py-3 lg:hidden">
+          <div className="border-t border-stone-200/80 py-3 lg:hidden">
             <nav className="flex flex-col">
               <NavLink
                 to="/"
                 onClick={closeMenu}
                 className={navLinkClass}
               >
-                <span className="block border-b border-stone-100 px-2 py-3">
+                <span className="flex items-center border-b border-stone-100 px-2 py-3">
                   Home
                 </span>
               </NavLink>
@@ -155,7 +167,7 @@ function Navbar() {
                 onClick={closeMenu}
                 className={navLinkClass}
               >
-                <span className="block border-b border-stone-100 px-2 py-3">
+                <span className="flex items-center border-b border-stone-100 px-2 py-3">
                   Latest
                 </span>
               </NavLink>
@@ -165,7 +177,7 @@ function Navbar() {
                 onClick={closeMenu}
                 className={navLinkClass}
               >
-                <span className="block border-b border-stone-100 px-2 py-3">
+                <span className="flex items-center border-b border-stone-100 px-2 py-3">
                   Politics
                 </span>
               </NavLink>
@@ -175,7 +187,7 @@ function Navbar() {
                 onClick={closeMenu}
                 className={navLinkClass}
               >
-                <span className="block border-b border-stone-100 px-2 py-3">
+                <span className="flex items-center border-b border-stone-100 px-2 py-3">
                   Technology
                 </span>
               </NavLink>
@@ -185,7 +197,7 @@ function Navbar() {
                 onClick={closeMenu}
                 className={navLinkClass}
               >
-                <span className="block border-b border-stone-100 px-2 py-3">
+                <span className="flex items-center border-b border-stone-100 px-2 py-3">
                   Sports
                 </span>
               </NavLink>
@@ -195,24 +207,27 @@ function Navbar() {
                   <Link
                     to="/dashboard"
                     onClick={closeMenu}
-                    className="border-b border-stone-100 px-2 py-3 text-sm font-semibold text-stone-700"
+                    className="flex items-center gap-2 border-b border-stone-100 px-2 py-3 text-sm font-semibold text-stone-700 transition hover:text-cyan-600"
                   >
+                    <LayoutDashboard size={16} />
                     Dashboard
                   </Link>
 
                   <Link
                     to="/create-news"
                     onClick={closeMenu}
-                    className="border-b border-stone-100 px-2 py-3 text-sm font-semibold text-stone-700"
+                    className="flex items-center gap-2 border-b border-stone-100 px-2 py-3 text-sm font-semibold text-stone-700 transition hover:text-cyan-600"
                   >
+                    <Plus size={16} />
                     Create News
                   </Link>
 
                   <button
                     type="button"
                     onClick={handleLogout}
-                    className="mt-3 bg-stone-900 px-4 py-3 text-center text-sm font-semibold text-white"
+                    className="mt-3 flex items-center justify-center gap-2 bg-cyan-900 px-4 py-3 text-center text-sm font-semibold text-white transition hover:bg-cyan-600"
                   >
+                    <LogOut size={16} />
                     Logout
                   </button>
                 </>
@@ -220,8 +235,9 @@ function Navbar() {
                 <Link
                   to="/login"
                   onClick={closeMenu}
-                  className="mt-3 bg-stone-900 px-4 py-3 text-center text-sm font-semibold text-white"
+                  className="mt-3 flex items-center justify-center gap-2 bg-cyan-900 px-4 py-3 text-center text-sm font-semibold text-white transition hover:bg-cyan-600"
                 >
+                  <LogIn size={16} />
                   Sign in
                 </Link>
               )}
@@ -230,13 +246,13 @@ function Navbar() {
         )}
       </div>
 
-      {/* Category Strip */}
-      <div className="border-t border-stone-200">
+      <div className="border-t border-stone-200/70 bg-white/50">
         <div className="mx-auto max-w-7xl overflow-x-auto px-4 lg:px-6">
           <div className="flex min-w-max items-center gap-5 py-3 text-[11px] font-semibold uppercase tracking-wide text-stone-500 sm:gap-6">
             <span className="text-red-600">
               Trending
             </span>
+
             <span>Bangladesh</span>
             <span>World</span>
             <span>Business</span>
