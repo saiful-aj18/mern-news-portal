@@ -20,7 +20,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/news", newsRoutes);
 
-app.get("/health", (req, res) => {
+app.get("/", (req, res) => {
   res.send("News Portal API is running...");
 });
 
