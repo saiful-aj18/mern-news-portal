@@ -47,11 +47,10 @@ function Home() {
   const latestSix = news.slice(0, 6);
   const featuredNews = latestSix[0];
   const sideNews = latestSix.slice(1, 4);
-  const gridNews = latestSix.slice(4, 7);
+  const gridNews = latestSix.slice(3, 6);
 
   return (
     <div>
-      {/* Hero Section */}
       <section className="mx-auto max-w-7xl px-4 pb-10 pt-8 sm:pb-12 sm:pt-10 lg:px-6 lg:pb-16 lg:pt-14">
         <div className="mb-8 border-b border-stone-300 pb-5">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-red-600">

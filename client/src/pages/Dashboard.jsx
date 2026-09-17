@@ -18,7 +18,7 @@ import api from "../services/api";
 import useAuthStore from "../store/authStore";
 
 function Dashboard() {
-  const { user } = useAuthStore();
+  const { user, setUser } = useAuthStore();
 
   const [profile, setProfile] = useState({
     name: "",
@@ -42,6 +42,7 @@ function Dashboard() {
         const response = await api.get("/users/profile");
 
         const userData = response.data.user;
+
 
         setProfile({
           name: userData.name || "",
@@ -109,6 +110,8 @@ function Dashboard() {
       );
 
       const updatedUser = response.data.user;
+
+      setUser(updatedUser);
 
       setProfile({
         name: updatedUser.name || "",

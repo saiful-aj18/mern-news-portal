@@ -36,3 +36,19 @@ textarea,
 select {
   font: inherit;
 }
+
+::selection {
+  background: #dc2626;
+  color: white;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+input,
+textarea,
+select {
+  border-radius: 0;
+}
