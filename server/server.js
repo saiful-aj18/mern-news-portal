@@ -5,6 +5,7 @@ const connectDB = require("./config/db");
 
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
+const newsRoutes = require("./routes/newsRoutes");
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/news", newsRoutes);
 
 app.get("/health", (req, res) => {
   res.send("News Portal API is running...");
