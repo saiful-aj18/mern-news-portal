@@ -1,8 +1,13 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import useAuthStore from "../store/authStore";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const { user, logout } = useAuthStore();
 
   const navLinkClass = ({ isActive }) =>
     `text-sm font-semibold transition ${
@@ -13,12 +18,18 @@ function Navbar() {
 
   const closeMenu = () => setMenuOpen(false);
 
+  const handleLogout = () => {
+    logout();
+    closeMenu();
+    navigate("/");
+  };
+
   return (
     <header className="border-b border-stone-200 bg-white">
-      {/* Top Info Bar */}
+      {/* Top Bar */}
       <div className="hidden border-b border-stone-200 bg-stone-50 md:block">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 text-xs text-stone-500 lg:px-6">
-          <span>{new Date().toLocaleDateString()}</span>
+          <span>Thursday, September 17, 2026</span>
           <span>Independent News &amp; Analysis</span>
         </div>
       </div>
@@ -56,37 +67,71 @@ function Navbar() {
               Latest
             </NavLink>
 
-            <NavLink to="/news?category=Politics" className={navLinkClass}>
+            <NavLink
+              to="/news?category=Politics"
+              className={navLinkClass}
+            >
               Politics
             </NavLink>
 
-            <NavLink to="/news?category=Technology" className={navLinkClass}>
+            <NavLink
+              to="/news?category=Technology"
+              className={navLinkClass}
+            >
               Technology
             </NavLink>
 
-            <NavLink to="/news?category=Sports" className={navLinkClass}>
+            <NavLink
+              to="/news?category=Sports"
+              className={navLinkClass}
+            >
               Sports
             </NavLink>
 
-            <Link
-              to="/login"
-              className="border border-stone-900 px-4 py-2 text-sm font-semibold text-stone-900 transition hover:bg-stone-900 hover:text-white"
-            >
-              Sign in
-            </Link>
+            {user ? (
+              <>
+                <Link
+                  to="/dashboard"
+                  className="text-sm font-semibold text-stone-700 hover:text-red-600"
+                >
+                  Dashboard
+                </Link>
+
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="border border-stone-900 px-4 py-2 text-sm font-semibold text-stone-900 transition hover:bg-stone-900 hover:text-white"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className="border border-stone-900 px-4 py-2 text-sm font-semibold text-stone-900 transition hover:bg-stone-900 hover:text-white"
+              >
+                Sign in
+              </Link>
+            )}
           </nav>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Button */}
           <button
             type="button"
-            onClick={() => setMenuOpen((prev) => !prev)}
+            onClick={() =>
+              setMenuOpen((prev) => !prev)
+            }
             className="flex h-10 w-10 shrink-0 items-center justify-center border border-stone-300 text-stone-900 lg:hidden"
             aria-label="Toggle navigation menu"
           >
             {menuOpen ? (
-              <span className="text-2xl leading-none">×</span>
+              <span className="text-2xl leading-none">
+                ×
+              </span>
             ) : (
-              <span className="text-xl leading-none">☰</span>
+              <span className="text-xl leading-none">
+                ☰
+              </span>
             )}
           </button>
         </div>
@@ -145,13 +190,41 @@ function Navbar() {
                 </span>
               </NavLink>
 
-              <Link
-                to="/login"
-                onClick={closeMenu}
-                className="mt-3 bg-stone-900 px-4 py-3 text-center text-sm font-semibold text-white"
-              >
-                Sign in
-              </Link>
+              {user ? (
+                <>
+                  <Link
+                    to="/dashboard"
+                    onClick={closeMenu}
+                    className="border-b border-stone-100 px-2 py-3 text-sm font-semibold text-stone-700"
+                  >
+                    Dashboard
+                  </Link>
+
+                  <Link
+                    to="/create-news"
+                    onClick={closeMenu}
+                    className="border-b border-stone-100 px-2 py-3 text-sm font-semibold text-stone-700"
+                  >
+                    Create News
+                  </Link>
+
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="mt-3 bg-stone-900 px-4 py-3 text-center text-sm font-semibold text-white"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <Link
+                  to="/login"
+                  onClick={closeMenu}
+                  className="mt-3 bg-stone-900 px-4 py-3 text-center text-sm font-semibold text-white"
+                >
+                  Sign in
+                </Link>
+              )}
             </nav>
           </div>
         )}
@@ -161,7 +234,9 @@ function Navbar() {
       <div className="border-t border-stone-200">
         <div className="mx-auto max-w-7xl overflow-x-auto px-4 lg:px-6">
           <div className="flex min-w-max items-center gap-5 py-3 text-[11px] font-semibold uppercase tracking-wide text-stone-500 sm:gap-6">
-            <span className="text-red-600">Trending</span>
+            <span className="text-red-600">
+              Trending
+            </span>
             <span>Bangladesh</span>
             <span>World</span>
             <span>Business</span>

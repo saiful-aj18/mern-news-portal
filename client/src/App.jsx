@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
@@ -13,7 +14,18 @@ import CreateNews from "./pages/CreateNews";
 import EditNews from "./pages/EditNews";
 import Contact from "./pages/Contact";
 
+import PrivateRoute from "./routes/PrivateRoute";
+import useAuthStore from "./store/authStore";
+
 function App() {
+  const getCurrentUser = useAuthStore(
+    (state) => state.getCurrentUser
+  );
+
+  useEffect(() => {
+    getCurrentUser();
+  }, [getCurrentUser]);
+
   return (
     <BrowserRouter>
       <div className="flex min-h-screen flex-col">
@@ -21,15 +33,54 @@ function App() {
 
         <main className="flex-1">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/news" element={<News />} />
-            <Route path="/news/:id" element={<NewsDetails />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/create-news" element={<CreateNews />} />
-            <Route path="/edit-news/:id" element={<EditNews />} />
-            <Route path="/contact" element={<Contact />} />
+            {/* Public Routes */}
+            <Route
+              path="/"
+              element={<Home />}
+            />
+
+            <Route
+              path="/news"
+              element={<News />}
+            />
+
+            <Route
+              path="/news/:id"
+              element={<NewsDetails />}
+            />
+
+            <Route
+              path="/login"
+              element={<Login />}
+            />
+
+            <Route
+              path="/register"
+              element={<Register />}
+            />
+
+            <Route
+              path="/contact"
+              element={<Contact />}
+            />
+
+            {/* Protected Routes */}
+            <Route element={<PrivateRoute />}>
+              <Route
+                path="/dashboard"
+                element={<Dashboard />}
+              />
+
+              <Route
+                path="/create-news"
+                element={<CreateNews />}
+              />
+
+              <Route
+                path="/edit-news/:id"
+                element={<EditNews />}
+              />
+            </Route>
           </Routes>
         </main>
 
